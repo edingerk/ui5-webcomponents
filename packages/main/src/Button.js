@@ -17,6 +17,7 @@ import isDefaultSlotProvided from "@ui5/webcomponents-base/dist/util/isDefaultSl
 import ButtonDesign from "./types/ButtonDesign.js";
 import ButtonTemplate from "./generated/templates/ButtonTemplate.lit.js";
 import Icon from "./Icon.js";
+import { api } from "./FlexWebC.js";
 
 import { BUTTON_ARIA_TYPE_ACCEPT, BUTTON_ARIA_TYPE_REJECT, BUTTON_ARIA_TYPE_EMPHASIZED } from "./generated/i18n/i18n-defaults.js";
 
@@ -33,6 +34,10 @@ const metadata = {
 	tag: "ui5-button",
 	languageAware: true,
 	properties: /** @lends sap.ui.webc.main.Button.prototype */ {
+		changeHandlerPath: {
+			type: String,
+			defaultValue: "/packages/main/dist/Button",
+		},
 
 		/**
 		 * Defines the component design.
@@ -372,6 +377,9 @@ class Button extends UI5Element {
 			handleEvent: handleTouchStartEvent,
 			passive: true,
 		};
+
+		// TODO: how to sync property and attribute?
+		this.setAttribute("change-handler-path", this.changeHandlerPath);
 	}
 
 	onEnterDOM() {
@@ -391,6 +399,21 @@ class Button extends UI5Element {
 	_onclick(event) {
 		if (this.nonInteractive) {
 			return;
+		}
+		if (this.id) {
+			// eslint-disable-next-line
+			const color = prompt("what color should the background be?");
+			if (color) {
+				api.addPersonalizationChange(this, {
+					content: {
+						color,
+					},
+					selector: {
+						id: this.id,
+					},
+					changeType: "changeBackgroundColor",
+				});
+			}
 		}
 		markEvent(event, "button");
 		const FormSupport = getFeature("FormSupport");
@@ -514,3 +537,12 @@ class Button extends UI5Element {
 Button.define();
 
 export default Button;
+
+const changeHandlers = {
+	changeBackgroundColor: {
+		applyChange: (change, element) => {
+			element.style["background-color"] = change.content.color;
+		},
+	},
+};
+export { changeHandlers };

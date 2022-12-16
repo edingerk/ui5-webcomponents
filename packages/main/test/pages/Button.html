@@ -17,7 +17,8 @@
 
 </head>
 
-<body class="button1auto">
+<body id="my-body" class="button1auto">
+	<ui5-flex-web-c root-control-id="my-body"></ui5-flex-web-c>
 	<ui5-button icon="home" id="icon-only-comment"><!----><!----></ui5-button>
 	<ui5-button icon="text" id="icon-only-blank-text"> </ui5-button>
 	<ui5-button>
@@ -37,6 +38,12 @@
 
 	<br />
 	<br />
+
+	<ui5-bar design="Header">
+		<ui5-button icon="home" tooltip="Go home" design="Transparent" slot="startContent"></ui5-button>
+		<ui5-label>Header Title</ui5-label>
+		<ui5-button icon="action-settings" tooltip="Go to settings" slot="endContent"></ui5-button>
+	</ui5-bar>
 
 	<div>
 		<ui5-toggle-button design="Positive" icon="add"></ui5-toggle-button>

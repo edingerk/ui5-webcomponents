@@ -51,6 +51,7 @@ import DateTimePicker from "./dist/DateTimePicker.js";
 import DurationPicker from "./dist/DurationPicker.js";
 import Dialog from "./dist/Dialog.js";
 import FileUploader from "./dist/FileUploader.js";
+import FlexWebC from "./dist/FlexWebC.js";
 import Icon from "./dist/Icon.js";
 import Input from "./dist/Input.js";
 import MultiInput from "./dist/MultiInput.js";
